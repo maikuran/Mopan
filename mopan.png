@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>月本国 地図</title>
+
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<style>
+html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+
+#map{
+    width:100%;
+    height:100%;
+    background:#8fd3ff;
+}
+
+.city-label{
+    background:rgba(255,255,255,.9);
+    border:1px solid #555;
+    border-radius:4px;
+    padding:2px 5px;
+    font-size:13px;
+    font-weight:bold;
+    white-space:nowrap;
+}
+</style>
+
+</head>
+<body>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+
+//========================
+// 地図サイズ
+//========================
+
+const width = 1600;
+const height = 1600;
+
+const bounds = [
+    [0,0],
+    [height,width]
+];
+
+//========================
+// Leaflet
+//========================
+
+const map = L.map("map",{
+
+    crs:L.CRS.Simple,
+
+    minZoom:-2,
+
+    maxZoom:4,
+
+    zoomSnap:0.25
+
+});
+
+L.imageOverlay("map.png",bounds).addTo(map);
+
+map.fitBounds(bounds);
+
+//========================
+// 政令指定都市
+//========================
+
+const cities=[
+
+{ name:"去幌", x:1400, y:170 },
+
+{ name:"仙府", x:1270, y:470 },
+
+{ name:"京東", x:1220, y:930 },
+
+{ name:"縦浜", x:1195, y:975 },
+
+{ name:"埼珠", x:1180, y:890 },
+
+{ name:"千羽", x:1260, y:935 },
+
+{ name:"相莫", x:1145, y:955 },
+
+{ name:"静赫", x:1070, y:1060 },
+
+{ name:"浜府", x:1035, y:1085 },
+
+{ name:"愛府", x:950, y:1130 },
+
+{ name:"豊陀", x:930, y:1155 },
+
+{ name:"京府", x:820, y:1045 },
+
+{ name:"大鹿", x:790, y:1080 },
+
+{ name:"神港", x:760, y:1110 },
+
+{ name:"姫辞", x:700, y:1135 },
+
+{ name:"阜耶麻", x:600, y:1125 },
+
+{ name:"稗島", x:470, y:1115 },
+
+{ name:"松耶麻", x:670, y:1295 },
+
+{ name:"北邱州", x:220, y:1110 },
+
+{ name:"副皐", x:170, y:1165 },
+
+{ name:"粂本", x:220, y:1280 },
+
+{ name:"港崎", x:230, y:1410 },
+
+{ name:"籠〆", x:145, y:1490 }
+
+];
+
+//========================
+// マーカー追加
+//========================
+
+cities.forEach(city=>{
+
+    L.marker([city.y,city.x])
+        .addTo(map)
+        .bindPopup(
+            "<b>"+city.name+"</b><br>政令指定都市"
+        );
+
+    L.marker([city.y,city.x],{
+
+        icon:L.divIcon({
+
+            className:"",
+
+            html:'<div class="city-label">'+city.name+'</div>',
+
+            iconSize:[70,22],
+
+            iconAnchor:[-5,10]
+
+        })
+
+    }).addTo(map);
+
+});
+
+//========================
+// 座標確認
+//========================
+
+map.on("click",function(e){
+
+    console.log(
+        "x="+Math.round(e.latlng.lng)+
+        " y="+Math.round(e.latlng.lat)
+    );
+
+});
+
+</script>
+
+</body>
+</html>
