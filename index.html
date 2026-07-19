@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>月本国地図</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+<style>
+html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+}
+
+#map{
+    width:100%;
+    height:100%;
+    background:#8fd3ff;
+}
+</style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+
+// 地図サイズ
+const width = 1600;
+const height = 1600;
+
+const bounds = [
+    [0,0],
+    [height,width]
+];
+
+// 地図
+const map = L.map("map",{
+    crs: L.CRS.Simple,
+    minZoom: -2,
+    maxZoom: 4,
+    zoomSnap: 0.25
+});
+
+// 地図画像
+L.imageOverlay("map.png", bounds).addTo(map);
+
+// 初期表示
+map.fitBounds(bounds);
+
+</script>
+
+</body>
+</html>
