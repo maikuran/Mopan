@@ -4,12 +4,10 @@
 <meta charset="UTF-8">
 <title>月本国地図</title>
 
-<link rel="stylesheet"
-href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
 <style>
-html,
-body{
+html,body{
     margin:0;
     width:100%;
     height:100%;
@@ -22,8 +20,8 @@ body{
     background:#8fd3ff;
 }
 </style>
-
 </head>
+
 <body>
 
 <div id="map"></div>
@@ -37,27 +35,31 @@ const mapWidth = 1600;
 const mapHeight = 1600;
 
 const bounds = [
-    [0,0],
-    [mapHeight,mapWidth]
+    [0, 0],
+    [mapHeight, mapWidth]
 ];
 
-// Leaflet
-const map = L.map("map",{
+// 地図作成
+const map = L.map("map", {
     crs: L.CRS.Simple,
-    minZoom: 0,
+    center: [800, 800],
+    zoom: 0,
+    minZoom: -2,
     maxZoom: 4,
-    zoomSnap: 1,
-    zoomControl: true,
-    attributionControl: false
+    zoomSnap: 0.25,
+    zoomDelta: 0.25,
+    maxBounds: bounds,
+    maxBoundsViscosity: 1.0
 });
 
 // タイル画像
-L.tileLayer("tiles/{z}/{x}/{y}.png",{
-    tileSize:256,
-    noWrap:true,
-    bounds:bounds,
-    minZoom:0,
-    maxZoom:4
+L.tileLayer("tiles/{z}/{x}/{y}.png", {
+    tileSize: 800,
+    noWrap: true,
+    bounds: bounds,
+    minZoom: 0,
+    maxZoom: 4,
+    errorTileUrl: ""
 }).addTo(map);
 
 // 初期表示
@@ -66,4 +68,4 @@ map.fitBounds(bounds);
 </script>
 
 </body>
-</html>
+</html>// 初期表示
